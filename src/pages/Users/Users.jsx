@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { getUsers } from "../../lib/services/users/users.service";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
+
 const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", token);
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-
-    fetch("https://data-werehouse-kr.herokuapp.com/users/all", requestOptions)
-      .then((response) => response.text())
-      .then((result) => setUsers(JSON.parse(result)))
-      .catch((error) => console.log("error", error));
+    getUsers().then((result) => setUsers(result));
   }, []);
 
   const handleOnClick = (user) => {
@@ -26,7 +15,7 @@ const Users = () => {
 
   return (
     <>
-      <Plantilla title="Usuarios"/>
+      <Plantilla title="Usuario" />
       <table className="table table-hover">
         <thead>
           <tr>

@@ -20,8 +20,8 @@ const Contacts = () => {
       "https://data-werehouse-kr.herokuapp.com/contacts/all",
       requestOptions
     )
-      .then((response) => response.text())
-      .then((result) => setContacts(JSON.parse(result)))
+      .then((response) => response.json())
+      .then((result) => setContacts(result))
       .catch((error) => console.log("error", error));
   }, []);
   return (
