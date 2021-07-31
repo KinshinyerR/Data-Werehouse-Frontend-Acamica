@@ -18,9 +18,9 @@ export const NestedItem = ({ list, handleOnEdit, handleOnDelete }) => {
                 {item.children ? (
                   <button className="btn text-dark" onClick={handleOnExpand}>
                     {expanded ? (
-                      <i class="fas fa-chevron-up"></i>
+                      <i className="fas fa-chevron-up"></i>
                     ) : (
-                      <i class="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-down"></i>
                     )}
                   </button>
                 ) : null}
