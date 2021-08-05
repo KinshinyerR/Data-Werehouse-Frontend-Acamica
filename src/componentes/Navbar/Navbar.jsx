@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleOnItem = (e) => {
     e.preventDefault();
-    setPage(e.target.name);
+    setPage(e.target.id);
     setNext(true);
   };
 
@@ -34,9 +34,11 @@ const Navbar = () => {
                   onClick={handleOnItem}
                   className="nav-link active"
                   name="contactos"
+                  id="contactos"
                   href="#"
                 >
-                  <i className="far fa-address-book"></i> Contactos
+                  <i id="contactos" className="far fa-address-book"></i>{" "}
+                  Contactos
                 </a>
               </li>
               <li className="nav-item">
@@ -45,8 +47,9 @@ const Navbar = () => {
                   className="nav-link active"
                   name="compañias"
                   href="#"
+                  id="compañias"
                 >
-                  <i className="far fa-building"></i> Compañias
+                  <i id="compañias" className="far fa-building"></i> Compañias
                 </a>
               </li>
               <li className="nav-item">
@@ -55,8 +58,9 @@ const Navbar = () => {
                   className="nav-link active"
                   name="usuarios"
                   href="#"
+                  id="usuarios"
                 >
-                  <i className="far fa-user"></i> Usuarios
+                  <i id="usuarios" className="far fa-user"></i> Usuarios
                 </a>
               </li>
               <li className="nav-item">
@@ -65,8 +69,9 @@ const Navbar = () => {
                   className="nav-link active"
                   name="region"
                   href="#"
+                  id="region"
                 >
-                  <i className="fas fa-globe"></i> Region/Ciudad
+                  <i id="region" className="fas fa-globe"></i> Region/Ciudad
                 </a>
               </li>
             </ul>
