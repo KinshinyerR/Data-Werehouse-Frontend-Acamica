@@ -15,7 +15,7 @@ const Users = () => {
 
   return (
     <>
-      <Plantilla title="Usuario" />
+      <Plantilla title="Usuarios" />
       <table className="table table-hover">
         <thead>
           <tr>
