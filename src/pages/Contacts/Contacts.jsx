@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
-import axios from "axios";
+
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
 
@@ -24,6 +24,11 @@ const Contacts = () => {
       .then((result) => setContacts(result))
       .catch((error) => console.log("error", error));
   }, []);
+
+  const handleOnClick = (contact) => {
+    console.log(contact);
+  };
+
   return (
     <>
       <Plantilla title="Contactos" />
@@ -39,13 +44,13 @@ const Contacts = () => {
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr key={contact.email}/*onClick={() => handleOnClick(user)}*/>
+            <tr key={contact.email} onClick={() => handleOnClick(contact)}>
               <th scope="row">
                 <input type="checkbox" />
               </th>
               <td>{contact.name}</td>
               <td>{contact.countryId}</td>
-              <td>{contact.companyId}</td>
+              <td>{contact.companyId.name}</td>
               <td>{contact.position}</td>
             </tr>
           ))}
