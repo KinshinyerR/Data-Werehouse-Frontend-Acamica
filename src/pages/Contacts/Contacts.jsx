@@ -49,7 +49,7 @@ const Contacts = () => {
                 <input type="checkbox" />
               </th>
               <td>{contact.name}</td>
-              <td>{contact.countryId}</td>
+              <td>{contact.countryId.name}</td>
               <td>{contact.companyId.name}</td>
               <td>{contact.position}</td>
             </tr>
