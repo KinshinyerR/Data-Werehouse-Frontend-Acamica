@@ -11,7 +11,10 @@ export const registerContact = (data) => {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/contacts/register", requestOptions)
+  return fetch(
+    "https://data-werehouse-kr.herokuapp.com/contacts/register",
+    requestOptions
+  )
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
