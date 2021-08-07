@@ -23,9 +23,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
+        <div className="container">
           <a className="navbar-brand">
-            <img className="rounded" src={Logo} alt="" width="60" height="60" />
+            <img className="rounded" src={Logo} alt="Logo" width="60" height="60" />
           </a>
           <div className="navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
@@ -77,9 +77,9 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div>
+        <div className="nav-item">
           <a onClick={logout} className="nav-link active" name="/" href="#">
-            <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
+            <i className="fas fa-sign-out-alt"></i>logout
           </a>
         </div>
       </nav>
