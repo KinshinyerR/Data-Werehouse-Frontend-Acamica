@@ -25,8 +25,12 @@ const Contacts = () => {
       .catch((error) => console.log("error", error));
   }, []);
 
-  const handleOnClick = (contact) => {
+  const handleOnClick = (e, contact) => {
+    console.log(e.target.localName);
     console.log(contact);
+    if (e.target.localName === "i" || e.target.localName === "button") {
+      console.log("delete");
+    }
   };
 
   return (
@@ -40,11 +44,12 @@ const Contacts = () => {
             <th scope="col">País</th>
             <th scope="col">Compañia</th>
             <th scope="col">Cargo</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr key={contact.email} onClick={() => handleOnClick(contact)}>
+            <tr key={contact.email} onClick={(e) => handleOnClick(e, contact)}>
               <th scope="row">
                 <input type="checkbox" />
               </th>
@@ -52,6 +57,11 @@ const Contacts = () => {
               <td>{contact.countryId.name}</td>
               <td>{contact.companyId.name}</td>
               <td>{contact.position}</td>
+              <td>
+                <button className="btn btn-outline-danger">
+                  <i className="far fa-trash-alt"></i>
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
