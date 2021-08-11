@@ -7,6 +7,7 @@ import UserForm from "./pages/Users/UserForm";
 import Contacts from "./pages/Contacts/Contacts";
 import ContactForm from "./pages/Contacts/ContactForm";
 import Companies from "./pages/Companies/Companies";
+import CompaniesForm from "./pages/Companies/CompaniesForm";
 import Region from "./pages/Region/Region";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/usuarios" component={Users} />
         <Route path="/contactos/formulario" component={ContactForm} />
         <Route path="/contactos" component={Contacts} />
+        <Route path="/compañias/formulario" component={CompaniesForm} />
         <Route path="/compañias" component={Companies} />
         <Route path="/region" component={Region} />
       </Switch>
