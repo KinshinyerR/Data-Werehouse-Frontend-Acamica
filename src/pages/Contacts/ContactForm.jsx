@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import {
   registerContact,
-  getRegions,
   getCompanies,
+} from "../../lib/services/contacts/contacts.service";
+
+import {
+  getRegions,
   getCountries,
   getCities,
-} from "../../lib/services/contacts/contacts.service";
+} from "../../lib/services/regions/region.service";
 
 const ContactForm = () => {
   const [compamies, setCompamies] = useState([]);
@@ -393,7 +396,10 @@ const ContactForm = () => {
         </div>
       ))}
 
-      <button type="submit" className="btn btn-outline-warning text-dark my-5 mx-0">
+      <button
+        type="submit"
+        className="btn btn-outline-warning text-dark my-5 mx-0"
+      >
         Registrar
       </button>
     </form>

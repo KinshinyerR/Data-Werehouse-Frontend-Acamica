@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  registerCompany,
-  getCities,
-} from "../../lib/services/companies/companies.service";
+import { registerCompany } from "../../lib/services/companies/companies.service";
+
+import { getCities } from "../../lib/services/regions/region.service";
 
 const CompaniesForm = () => {
   const [cities, setCities] = useState([]);
