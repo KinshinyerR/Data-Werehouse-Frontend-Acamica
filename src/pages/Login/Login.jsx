@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleOnSubmit}
-      className="w-50 mx-auto mt-5 pt-5 pb-3 rounded shadow-lg"
+      className="w-50 mx-auto mt-5 pt-5 pb-3 rounded shadow-lg text-center"
     >
       <img
         className="mb-4 rounded"
