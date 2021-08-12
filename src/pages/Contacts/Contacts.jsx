@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
+import { deleteContact } from "../../lib/services/contacts/contacts.service";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -23,13 +24,15 @@ const Contacts = () => {
       .then((response) => response.json())
       .then((result) => setContacts(result))
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [contacts]);
 
   const handleOnClick = (e, contact) => {
-    console.log(e.target.localName);
-    console.log(contact);
     if (e.target.localName === "i" || e.target.localName === "button") {
-      console.log("delete");
+      console.log(contact.email);
+      const accept = window.confirm(
+        `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
+      );
+      if (accept) deleteContact(contact.email).then((result) => alert(result));
     }
   };
 
