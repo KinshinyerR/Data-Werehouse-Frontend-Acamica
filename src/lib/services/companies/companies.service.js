@@ -20,7 +20,7 @@ export const registerCompany = (data) => {
     .catch((error) => console.log("error", error));
 };
 
-export const getCities = () => {
+export const getCompanies = () => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();
   myHeaders.append("x-auth-token", token);
@@ -32,7 +32,7 @@ export const getCities = () => {
   };
 
   return fetch(
-    "https://data-werehouse-kr.herokuapp.com/regions/allCities",
+    "https://data-werehouse-kr.herokuapp.com/companies/all",
     requestOptions
   )
     .then((response) => response.json())
