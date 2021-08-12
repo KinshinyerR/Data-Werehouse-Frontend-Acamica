@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-import {
-  registerContact,
-  getCompanies,
-} from "../../lib/services/contacts/contacts.service";
+import { getCompanies } from "../../lib/services/companies/companies.service";
+import { registerContact } from "../../lib/services/contacts/contacts.service";
 
 import {
   getRegions,
@@ -91,7 +88,6 @@ const ContactForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     registerContact(formData).then((result) => console.log(result));
-    console.log(formData);
   };
 
   useEffect(() => {
