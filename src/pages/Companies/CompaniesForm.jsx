@@ -22,7 +22,7 @@ const CompaniesForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    registerCompany(formData).then((result) => console.log(result));
+    registerCompany(formData).then((result) => result);
   };
 
   useEffect(() => {
