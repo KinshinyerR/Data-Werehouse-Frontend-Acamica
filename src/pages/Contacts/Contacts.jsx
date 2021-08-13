@@ -33,6 +33,9 @@ const Contacts = () => {
         `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
       );
       if (accept) deleteContact(contact.email).then((result) => alert(result));
+      else {
+        alert("Contacto no eliminado");
+      }
     }
   };
 
