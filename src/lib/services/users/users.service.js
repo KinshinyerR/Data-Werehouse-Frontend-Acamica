@@ -39,3 +39,27 @@ export const registerUser = (data) => {
     .then((result) => result)
     .catch((error) => console.log("error", { error }));
 };
+
+export const deleteUser = (data) => {
+  const token = localStorage.getItem("token");
+  const myHeaders = new Headers();
+  myHeaders.append("x-auth-token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    body: JSON.stringify({
+      email: data,
+    }),
+    redirect: "follow",
+  };
+
+  return fetch(
+    "https://data-werehouse-kr.herokuapp.com/users/delete",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => result)
+    .catch((error) => console.log("error", error));
+};
