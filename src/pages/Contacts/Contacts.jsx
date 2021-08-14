@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
+import Modal from "../../componentes/Modal/Modal";
+import ContactForm from "./ContactForm";
 import { deleteContact } from "../../lib/services/contacts/contacts.service";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
+  const [modal, setModal] = useState(null);
+
+  const handleOnClose = () => {
+    setModal(null);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,22 +33,37 @@ const Contacts = () => {
       .catch((error) => console.log("error", error));
   }, [contacts]);
 
-  const handleOnClick = (e, contact) => {
-    if (e.target.localName === "i" || e.target.localName === "button") {
-      console.log(contact.email);
-      const accept = window.confirm(
-        `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
-      );
-      if (accept) deleteContact(contact.email).then((result) => alert(result));
-      else {
-        alert("Contacto no eliminado");
-      }
+  const handleOnDelete = (e, contact) => {
+    e.stopPropagation();
+    console.log(contact.email);
+    const accept = window.confirm(
+      `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
+    );
+    if (accept) deleteContact(contact.email).then((result) => alert(result));
+    else {
+      alert("Contacto no eliminado");
     }
+  };
+
+  const handleOnClick = (contact) => {
+    setModal(
+      <Modal
+        show
+        title={contact ? "Actualizar Contacto" : "Añadir Contacto"}
+        body={
+          <ContactForm
+            contact={contact}
+            title={contact ? "Actualizar" : "Añadir"}
+          />
+        }
+        onClose={handleOnClose}
+      />
+    );
   };
 
   return (
     <>
-      <Plantilla title="Contactos" />
+      <Plantilla title="Contactos" handleOnAdd={() => handleOnClick()} />
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -55,7 +77,7 @@ const Contacts = () => {
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr key={contact.email} onClick={(e) => handleOnClick(e, contact)}>
+            <tr key={contact.email} onClick={() => handleOnClick(contact)}>
               <th scope="row">
                 <input type="checkbox" />
               </th>
@@ -64,7 +86,10 @@ const Contacts = () => {
               <td>{contact.companyId.name}</td>
               <td>{contact.position}</td>
               <td>
-                <button className="btn btn-outline-danger">
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={(e) => handleOnDelete(e, contact)}
+                >
                   <i className="far fa-trash-alt"></i>
                 </button>
               </td>
@@ -72,6 +97,7 @@ const Contacts = () => {
           ))}
         </tbody>
       </table>
+      {modal}
     </>
   );
 };

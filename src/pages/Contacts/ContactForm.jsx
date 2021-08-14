@@ -8,23 +8,23 @@ import {
   getCities,
 } from "../../lib/services/regions/region.service";
 
-const ContactForm = () => {
+const ContactForm = ({ contact, title }) => {
   const [compamies, setCompamies] = useState([]);
   const [regions, setRegions] = useState([]);
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
 
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
-    position: "",
-    email: "",
-    companyId: "",
-    regionId: "",
-    countryId: "",
-    cityId: "",
-    address: "",
-    interest: 0,
+    name: contact ? contact.name : "",
+    surname: contact ? contact.surname : "",
+    position: contact ? contact.position : "",
+    email: contact ? contact.email : "",
+    companyId: contact ? contact.companyId.name : "",
+    regionId: contact ? contact.regionId : "",
+    countryId: contact ? contact.countryId.name : "",
+    cityId: contact ? contact.cityId : "",
+    address: contact ? contact.address : "",
+    interest: contact ? contact.interest : 0,
     channels: [
       {
         channelName: "",
@@ -98,12 +98,7 @@ const ContactForm = () => {
   }, []);
 
   return (
-    <form
-      onSubmit={handleOnSubmit}
-      className="border border-warning rounded container p-5 "
-    >
-      <h1 className="mb-5">Registrar Contacto</h1>
-
+    <form onSubmit={handleOnSubmit} className="container ">
       <div className="mb-3 row">
         <label htmlFor="name" className="col-sm-2 col-form-label">
           Nombre
@@ -396,7 +391,7 @@ const ContactForm = () => {
         type="submit"
         className="btn btn-outline-warning text-dark my-5 mx-0"
       >
-        Registrar
+        {title}
       </button>
     </form>
   );
