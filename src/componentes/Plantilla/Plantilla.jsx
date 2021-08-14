@@ -2,31 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import { Redirect } from "react-router-dom";
 
-const Plantilla = ({ title }) => {
-  const [page, setPage] = useState("");
-  const [next, setNext] = useState();
-
-  const handleOnItem = (e) => {
-    e.preventDefault();
-    console.log(title);
-    if (title === "Contactos") {
-      setPage("contactos/formulario");
-      setNext(true);
-    }
-    if (title === "Compañias") {
-      setPage("compañias/formulario");
-      setNext(true);
-    }
-    if (title === "Usuarios") {
-      setPage("usuarios/formulario");
-      setNext(true);
-    }
-  };
-
-  if (next) {
-    return <Redirect to={page} />;
-  }
-
+const Plantilla = ({ title, handleOnAdd }) => {
   return (
     <>
       <Navbar />
@@ -34,7 +10,7 @@ const Plantilla = ({ title }) => {
         <h1 className="my-3">{title}</h1>
         <button
           className="btn btn-outline-warning text-dark"
-          onClick={handleOnItem}
+          onClick={handleOnAdd}
         >
           Añadir {title}
         </button>
