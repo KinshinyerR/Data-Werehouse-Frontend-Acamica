@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { getCompanies } from "../../lib/services/companies/companies.service";
-import { registerContact } from "../../lib/services/contacts/contacts.service";
+import {
+  registerContact,
+  updateContact,
+} from "../../lib/services/contacts/contacts.service";
 
 import {
   getRegions,
   getCountries,
   getCities,
 } from "../../lib/services/regions/region.service";
+import Contacts from "./Contacts";
 
 const ContactForm = ({ contact, title }) => {
   const [compamies, setCompamies] = useState([]);
@@ -19,19 +23,21 @@ const ContactForm = ({ contact, title }) => {
     surname: contact ? contact.surname : "",
     position: contact ? contact.position : "",
     email: contact ? contact.email : "",
-    companyId: contact ? contact.companyId.name : "",
+    companyId: contact ? contact.companyId._id : "",
     regionId: contact ? contact.regionId : "",
-    countryId: contact ? contact.countryId.name : "",
+    countryId: contact ? contact.countryId._id : "",
     cityId: contact ? contact.cityId : "",
     address: contact ? contact.address : "",
     interest: contact ? contact.interest : 0,
-    channels: [
-      {
-        channelName: "",
-        account: "",
-        preference: "",
-      },
-    ],
+    channels: contact
+      ? contact.channels
+      : [
+          {
+            channelName: "",
+            account: "",
+            preference: "",
+          },
+        ],
   });
 
   const {
@@ -87,7 +93,9 @@ const ContactForm = ({ contact, title }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    registerContact(formData).then((result) => console.log(result));
+    contact
+      ? updateContact(formData).then((result) => console.log(result))
+      : registerContact(formData).then((result) => console.log(result));
   };
 
   useEffect(() => {
@@ -96,6 +104,8 @@ const ContactForm = ({ contact, title }) => {
     getCountries().then((result) => setCountries(result));
     getCities().then((result) => setCities(result));
   }, []);
+
+  console.log(contact);
 
   return (
     <form onSubmit={handleOnSubmit} className="container ">

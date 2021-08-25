@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import ContactForm from "./ContactForm";
-import { deleteContact } from "../../lib/services/contacts/contacts.service";
+import {
+  deleteContact,
+  getContacts,
+} from "../../lib/services/contacts/contacts.service";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -10,28 +13,8 @@ const Contacts = () => {
 
   const handleOnClose = () => {
     setModal(null);
+    getContacts().then((result) => setContacts(result));
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://data-werehouse-kr.herokuapp.com/contacts/all",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => setContacts(result))
-      .catch((error) => console.log("error", error));
-  }, [contacts]);
 
   const handleOnDelete = (e, contact) => {
     e.stopPropagation();
@@ -39,7 +22,11 @@ const Contacts = () => {
     const accept = window.confirm(
       `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
     );
-    if (accept) deleteContact(contact.email).then((result) => alert(result));
+    if (accept)
+      deleteContact(contact.email).then((result) => {
+        alert(result);
+        getContacts().then((result) => setContacts(result));
+      });
     else {
       alert("Contacto no eliminado");
     }
@@ -60,6 +47,10 @@ const Contacts = () => {
       />
     );
   };
+
+  useEffect(() => {
+    getContacts().then((result) => setContacts(result));
+  }, []);
 
   return (
     <>
