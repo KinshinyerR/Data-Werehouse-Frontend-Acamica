@@ -40,6 +40,28 @@ export const getCompanies = () => {
     .catch((error) => console.log("error", error));
 };
 
+export const updateCompany = (data) => {
+  const token = localStorage.getItem("token");
+  const myHeaders = new Headers();
+  myHeaders.append("x-auth-token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: JSON.stringify(data),
+    redirect: "follow",
+  };
+
+  return fetch(
+    "https://data-werehouse-kr.herokuapp.com/companies/update",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => result)
+    .catch((error) => console.log("error", error));
+};
+
 export const deleteCompany = (data) => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();

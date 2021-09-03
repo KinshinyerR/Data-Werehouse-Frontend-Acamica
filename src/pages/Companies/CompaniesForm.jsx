@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-import { registerCompany } from "../../lib/services/companies/companies.service";
+import {
+  registerCompany,
+  updateCompany,
+} from "../../lib/services/companies/companies.service";
 
 import { getCities } from "../../lib/services/regions/region.service";
 
-const CompaniesForm = () => {
+const CompaniesForm = ({ company, title }) => {
   const [cities, setCities] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    email: "",
-    phone: 0,
-    cityId: "",
+    name: company ? company.name : "",
+    address: company ? company.address : "",
+    email: company ? company.email : "",
+    phone: company ? company.phone : 0,
+    cityId: company ? company.cityId._id : "",
   });
 
   const { name, address, email, phone, cityId } = formData;
@@ -22,18 +25,18 @@ const CompaniesForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    registerCompany(formData).then((result) => result);
+    company
+      ? updateCompany(formData).then((result) => console.log(result))
+      : registerCompany(formData).then((result) => result);
   };
 
   useEffect(() => {
     getCities().then((result) => setCities(result));
   }, []);
+
+  
   return (
-    <form
-      onSubmit={handleOnSubmit}
-      className="border border-warning rounded container p-5"
-    >
-      <h1 className="mb-5">Registrar Compañia</h1>
+    <form onSubmit={handleOnSubmit} className="container">
       <div className="mb-3 row">
         <label htmlFor="name" className="col-sm-2 col-form-label">
           Nombre
@@ -120,7 +123,7 @@ const CompaniesForm = () => {
         type="submit"
         className="btn btn-outline-warning text-dark my-5 mx-0"
       >
-        Registrar
+        {title}
       </button>
     </form>
   );
