@@ -10,7 +10,7 @@ import {
   getCountries,
   getCities,
 } from "../../lib/services/regions/region.service";
-import Contacts from "./Contacts";
+
 
 const ContactForm = ({ contact, title }) => {
   const [compamies, setCompamies] = useState([]);
