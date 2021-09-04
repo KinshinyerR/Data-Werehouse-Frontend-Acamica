@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 
-import { registerUser } from "../../lib/services/users/users.service";
+import {
+  registerUser,
+  updateUser,
+} from "../../lib/services/users/users.service";
 
-const UserForm = () => {
+const UserForm = ({ user, title }) => {
   const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    perfil: "basic",
-    password: "",
+    nombre: user ? user.nombre : "",
+    apellido: user ? user.apellido : "",
+    email: user ? user.email : "",
+    perfil: user ? user.perfil : "basic",
+    password: user ? user.password : "",
   });
 
   const { nombre, apellido, email, perfil, password } = formData;
@@ -19,16 +22,13 @@ const UserForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then((result) => console.log(result));
+    user
+      ? updateUser(formData).then((result) => console.log(result))
+      : registerUser(formData).then((result) => console.log(result));
   };
 
   return (
-    <form
-      onSubmit={handleOnSubmit}
-      className="border border-warning rounded container p-5"
-    >
-      <h1 className="mb-5">Registrar Usuario</h1>
-
+    <form onSubmit={handleOnSubmit} className="container">
       <div className="mb-3 row">
         <label htmlFor="nombre" className="col-sm-2 col-form-label">
           Nombre
@@ -99,7 +99,7 @@ const UserForm = () => {
         <div className="col-md-6">
           <input
             onChange={handleOnChange}
-            type="password"
+            type="text"
             id="password"
             name="password"
             value={password}
@@ -112,7 +112,7 @@ const UserForm = () => {
         type="submit"
         className="btn btn-outline-warning text-dark my-5 mx-0"
       >
-        Registrar
+        {title}
       </button>
     </form>
   );
