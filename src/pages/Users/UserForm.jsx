@@ -11,7 +11,7 @@ const UserForm = ({ user, title }) => {
     apellido: user ? user.apellido : "",
     email: user ? user.email : "",
     perfil: user ? user.perfil : "basic",
-    password: user ? user.password : "",
+    password: "",
   });
 
   const { nombre, apellido, email, perfil, password } = formData;
@@ -99,7 +99,7 @@ const UserForm = ({ user, title }) => {
         <div className="col-md-6">
           <input
             onChange={handleOnChange}
-            type="text"
+            type="password"
             id="password"
             name="password"
             value={password}

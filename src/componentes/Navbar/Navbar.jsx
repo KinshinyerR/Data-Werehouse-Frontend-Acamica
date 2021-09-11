@@ -31,11 +31,11 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <a
-                  onClick={handleOnItem}
+                  // onClick={handleOnItem}
                   className="nav-link active"
                   name="contactos"
                   id="contactos"
-                  href="#"
+                  href="/contactos"
                 >
                   <i id="contactos" className="far fa-address-book"></i>{" "}
                   Contactos
