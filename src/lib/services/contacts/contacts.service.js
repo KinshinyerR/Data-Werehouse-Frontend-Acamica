@@ -1,3 +1,15 @@
+import axios from "axios";
+
+const api = process.env.REACT_APP_API;
+
+function getHeaders() {
+  const token = localStorage.getItem("token");
+
+  return {
+    "x-auth-token": token,
+  };
+}
+
 export const registerContact = (data) => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();
@@ -13,16 +25,13 @@ export const registerContact = (data) => {
 
   console.log(JSON.stringify(data));
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/contacts/register",
-    requestOptions
-  )
+  return fetch(`${api}/contacts/register`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => console.log("error", { error }));
 };
 
-export const getContacts = () => {
+export const getContacts = (search) => {
   const token = localStorage.getItem("token");
 
   const myHeaders = new Headers();
@@ -35,35 +44,17 @@ export const getContacts = () => {
   };
 
   return fetch(
-    "https://data-werehouse-kr.herokuapp.com/contacts/all",
+    `https://data-werehouse-kr.herokuapp.com/contacts/all?search=${search}`,
     requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => result)
-    .catch((error) => console.log("error", { error }));
+  ).then((response) => response.json());
+  // .then((result) => result)
+  // .catch((error) => {
+  //   throw error;
+  // });
 };
 
-export const updateContact = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "PUT",
-    headers: myHeaders,
-    body: JSON.stringify(data),
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/contacts/update",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-};
+export const updateContact = (data) =>
+  axios.put(`${api}/contacts/update`, data, { headers: getHeaders() });
 
 export const deleteContact = (data) => {
   const token = localStorage.getItem("token");
@@ -80,10 +71,7 @@ export const deleteContact = (data) => {
     redirect: "follow",
   };
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/contacts/delete",
-    requestOptions
-  )
+  return fetch(`${api}/contacts/delete`, requestOptions)
     .then((response) => response.text())
     .then((result) => result)
     .catch((error) => console.log("error", error));

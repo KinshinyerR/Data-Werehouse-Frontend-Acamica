@@ -11,7 +11,6 @@ import {
   getCities,
 } from "../../lib/services/regions/region.service";
 
-
 const ContactForm = ({ contact, title }) => {
   const [compamies, setCompamies] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -94,7 +93,9 @@ const ContactForm = ({ contact, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     contact
-      ? updateContact(formData).then((result) => console.log(result))
+      ? updateContact(formData)
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error))
       : registerContact(formData).then((result) => console.log(result));
   };
 
@@ -286,7 +287,7 @@ const ContactForm = ({ contact, title }) => {
           Interés
         </label>
         <div className="col-md-6">
-          <input
+          <select
             onChange={handleOnChange}
             type="number"
             id="interest"
@@ -295,7 +296,13 @@ const ContactForm = ({ contact, title }) => {
             className="form-control"
             min="10"
             max="100"
-          />
+          >
+            <option>0</option>
+            <option>25</option>
+            <option>50</option>
+            <option>75</option>
+            <option>100</option>
+          </select>
         </div>
       </div>
 
