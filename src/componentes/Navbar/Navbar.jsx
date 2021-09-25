@@ -1,78 +1,70 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import Logo from "../../images/dt1.png";
 
 const Navbar = () => {
-  const [page, setPage] = useState("");
-  const [next, setNext] = useState();
+  const history = useHistory();
 
-  const handleOnItem = (e) => {
-    e.preventDefault();
-    setPage(e.target.id);
-    setNext(true);
-  };
-
-  const logout = (e) => {
-    setPage(e.target.name);
-    setNext(true);
+  const logout = () => {
     localStorage.removeItem("token");
+    history.push("/");
   };
-  if (next) {
-    return <Redirect to={page} />;
-  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
           <a className="navbar-brand">
-            <img className="rounded" src={Logo} alt="Logo" width="60" height="60" />
+            <img
+              className="rounded"
+              src={Logo}
+              alt="Logo"
+              width="60"
+              height="60"
+            />
           </a>
           <div className="navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
-                  // onClick={handleOnItem}
+                <Link
                   className="nav-link active"
                   name="contactos"
                   id="contactos"
-                  href="/contactos"
+                  to="/contactos"
                 >
                   <i id="contactos" className="far fa-address-book"></i>{" "}
                   Contactos
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  onClick={handleOnItem}
+                <Link
                   className="nav-link active"
                   name="compañias"
-                  href="#"
+                  to="/compañias"
                   id="compañias"
                 >
                   <i id="compañias" className="far fa-building"></i> Compañias
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  onClick={handleOnItem}
+                <Link
                   className="nav-link active"
                   name="usuarios"
-                  href="#"
+                  to="/usuarios"
                   id="usuarios"
                 >
                   <i id="usuarios" className="far fa-user"></i> Usuarios
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  onClick={handleOnItem}
+                <Link
                   className="nav-link active"
                   name="region"
-                  href="#"
+                  to="/region"
                   id="region"
                 >
                   <i id="region" className="fas fa-globe"></i> Region/Ciudad
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

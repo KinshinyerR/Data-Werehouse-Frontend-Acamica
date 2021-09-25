@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
+import Navbar from "./componentes/Navbar/Navbar";
 import Login from "./pages/Login/Login";
 import Users from "./pages/Users/Users";
 import UserForm from "./pages/Users/UserForm";
@@ -13,16 +13,23 @@ import Region from "./pages/Region/Region";
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/usuarios/formulario" component={UserForm} />
-        <Route path="/usuarios" component={Users} />
-        <Route path="/contactos/formulario" component={ContactForm} />
-        <Route path="/contactos" component={Contacts} />
-        <Route path="/compañias/formulario" component={CompaniesForm} />
-        <Route path="/compañias" component={Companies} />
-        <Route path="/region" component={Region} />
-      </Switch>
+      <>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route>
+            <Navbar />
+            <Switch>
+              <Route path="/usuarios/formulario" component={UserForm} />
+              <Route path="/usuarios" component={Users} />
+              <Route path="/contactos/formulario" component={ContactForm} />
+              <Route path="/contactos" component={Contacts} />
+              <Route path="/compañias/formulario" component={CompaniesForm} />
+              <Route path="/compañias" component={Companies} />
+              <Route path="/region" component={Region} />
+            </Switch>
+          </Route>
+        </Switch>
+      </>
     </BrowserRouter>
   );
 }
