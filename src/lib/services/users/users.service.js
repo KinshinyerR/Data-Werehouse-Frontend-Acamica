@@ -15,7 +15,7 @@ export const getUsers = () => {
   )
     .then((response) => response.json())
     .then((result) => result)
-    .catch((error) => console.log("error", { error }));
+    // .catch((error) => console.log("error en getusers", { error }));
 };
 
 export const registerUser = (data) => {

@@ -1,43 +1,37 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Redirect } from "react-router-dom";
 import img from "../../images/dt1.png";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [logged, setLogged] = useState(false);
+  const [error, setError] = useState("");
 
   const { email, password } = data;
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(data),
-    };
-
-    fetch("https://data-werehouse-kr.herokuapp.com/users/login", requestOptions)
-      .then((response) => response.text())
+    axios
+      .post("https://data-werehouse-kr.herokuapp.com/users/login", data)
       .then((result) => {
         console.log(result);
-        localStorage.setItem("token", result);
+        localStorage.setItem("token", result.data);
         setLogged(true);
       })
-      .catch((error) => {
-        console.log("error", error);
+      .catch((err) => {
+        setError(err.response.data);
       });
   };
 
   if (logged) {
-    return <Redirect to="/usuarios" />;
+    return <Redirect to="/contactos" />;
   }
 
   const handleOnChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    setError("")
   };
 
   return (
@@ -79,11 +73,7 @@ const Login = () => {
         <label htmlFor="floatingPassword">Password</label>
       </div>
       <button className="w-50 mt-3 btn btn-lg btn-primary">Sign in</button>
-      {logged ? (
-        <p className="mt-3 mb-3 text-muted">
-          Usuario y/o contraseña incorrecta
-        </p>
-      ) : null}
+      {error ? <p className="mt-3 mb-3 text-muted">{error}</p> : null}
       <p className="mt-3 mb-3 text-muted">Data Werehouse © 2021</p>
     </form>
   );
