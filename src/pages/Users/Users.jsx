@@ -61,7 +61,7 @@ const Users = () => {
   ) : (
     <>
       <Plantilla title="Usuarios" handleOnAdd={() => handleOnClick()} />
-      <table className="table table-hover">
+      <table className="table table-hover  mx-4">
         <thead>
           <tr>
             <th scope="col">{<input type="checkbox" />}</th>
