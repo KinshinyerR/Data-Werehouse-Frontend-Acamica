@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import ContactForm from "./ContactForm";
+import { ContactDelete } from "./ContactDelete";
 import ProgressBar from "../../componentes/ProgressBar/ProgressBar";
-import {
-  deleteContact,
-  getContacts,
-} from "../../lib/services/contacts/contacts.service";
+import { getContacts } from "../../lib/services/contacts/contacts.service";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -19,23 +17,21 @@ const Contacts = () => {
 
   const handleOnClose = () => {
     setModal(null);
-    getContacts().then((result) => setContacts(result));
+    getContacts(query)
+      .then((result) => setContacts(result))
+      .catch((error) => console.log("error desde contact.jsx", error));
   };
 
   const handleOnDelete = (e, contact) => {
     e.stopPropagation();
-    console.log(contact.email);
-    const accept = window.confirm(
-      `¿Esta seguro que desea eliminar al contacto ${contact.name}?`
+    setModal(
+      <Modal
+        show
+        title="Eliminar"
+        body={<ContactDelete contact={contact} title="Eliminar" />}
+        onClose={handleOnClose}
+      />
     );
-    if (accept)
-      deleteContact(contact.email).then((result) => {
-        alert(result);
-        getContacts().then((result) => setContacts(result));
-      });
-    else {
-      alert("Contacto no eliminado");
-    }
   };
 
   const handleOnClick = (contact) => {

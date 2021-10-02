@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import UserForm from "./UserForm";
+import { UserDelete } from "./UserDelete";
 import { getUsers, deleteUser } from "../../lib/services/users/users.service";
 
 const Users = () => {
@@ -17,18 +18,14 @@ const Users = () => {
 
   const handleOnDelete = (e, user) => {
     e.stopPropagation();
-    console.log(user.email);
-    const accept = window.confirm(
-      `¿Esta seguro que desea eliminar al usuario ${user.nombre}?`
+    setModal(
+      <Modal
+        show
+        title="Eliminar"
+        body={<UserDelete user={user} title="Eliminar" />}
+        onClose={handleOnClose}
+      />
     );
-    if (accept)
-      deleteUser(user.email).then((result) => {
-        alert(result);
-        getUsers().then((result) => setUsers(result));
-      });
-    else {
-      alert("Usuario no eliminado");
-    }
   };
   const handleOnClick = (user) => {
     setModal(

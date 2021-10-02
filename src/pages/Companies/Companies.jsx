@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import CompaniesForm from "./CompaniesForm";
-import {
-  deleteCompany,
-  getCompanies,
-} from "../../lib/services/companies/companies.service";
+import { CompaniesDelete } from "./CompaniesDelete";
+import { getCompanies } from "../../lib/services/companies/companies.service";
 
 const Companies = () => {
   const [companies, setCompanies] = useState([]);
@@ -18,18 +16,14 @@ const Companies = () => {
 
   const handleOnDelete = (e, company) => {
     e.stopPropagation();
-    console.log(company.email);
-    const accept = window.confirm(
-      `¿Esta seguro que desea eliminar la Compañia ${company.name}?`
+    setModal(
+      <Modal
+        show
+        title="Eliminar"
+        body={<CompaniesDelete company={company} title="Eliminar" />}
+        onClose={handleOnclose}
+      />
     );
-    if (accept)
-      deleteCompany(company.email).then((result) => {
-        alert(result);
-        getCompanies().then((result) => setCompanies(result));
-      });
-    else {
-      alert("Compañia no eliminada");
-    }
   };
 
   const handleOnClick = (company) => {
