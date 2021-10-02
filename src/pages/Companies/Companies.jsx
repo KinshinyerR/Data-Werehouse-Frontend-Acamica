@@ -56,7 +56,7 @@ const Companies = () => {
   return (
     <>
       <Plantilla title="Compañias" handleOnAdd={() => handleOnClick()} />
-      <table className="table table-striped table-hover">
+      <table className="table table-striped table-hover  mx-4">
         <thead>
           <tr>
             <th scope="col">
