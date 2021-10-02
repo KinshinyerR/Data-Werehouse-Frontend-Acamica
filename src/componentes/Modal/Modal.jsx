@@ -17,7 +17,7 @@ export default function Modal({ show, title, body, footer, onClose }) {
       <div
         className="modal fade show"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
