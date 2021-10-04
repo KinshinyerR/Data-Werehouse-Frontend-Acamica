@@ -181,7 +181,6 @@ const ContactForm = ({ contact, title }) => {
         <div className="col-md-6">
           <select
             onChange={handleOnChange}
-            type="text"
             id="companyId"
             name="companyId"
             value={companyId}

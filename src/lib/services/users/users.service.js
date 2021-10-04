@@ -1,87 +1,36 @@
-export const getUsers = () => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
+import axios from "axios";
+import { getHeaders } from "../../utils/getHeaders";
 
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
+const api = process.env.REACT_APP_API;
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/users/all",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => result)
-    // .catch((error) => console.log("error en getusers", { error }));
-};
+export const getProfile = () =>
+  axios(`${api}/users/profile`, { headers: getHeaders() }).then(
+    ({ data }) => data
+  );
 
-export const registerUser = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
+export const getUsers = () =>
+  axios("https://data-werehouse-kr.herokuapp.com/users/all", {
+    headers: getHeaders(),
+  }).then(({ data }) => data);
 
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: JSON.stringify(data),
-    redirect: "follow",
-  };
+export const registerUser = (data) =>
+  axios
+    .post("https://data-werehouse-kr.herokuapp.com/users/register", data, {
+      headers: getHeaders(),
+    })
+    .then(({ data }) => data);
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/users/register",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => result)
-    .catch((error) => console.log("error", { error }));
-};
+export const updateUser = (data) =>
+  axios
+    .put("https://data-werehouse-kr.herokuapp.com/users/update", data, {
+      headers: getHeaders(),
+    })
+    .then(({ data }) => data);
 
-export const updateUser = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "PUT",
-    headers: myHeaders,
-    body: JSON.stringify(data),
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/users/update",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
-};
-
-export const deleteUser = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "DELETE",
-    headers: myHeaders,
-    body: JSON.stringify({
-      email: data,
-    }),
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/users/delete",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
-};
+export const deleteUser = (data) =>
+  axios
+    .delete("https://data-werehouse-kr.herokuapp.com/users/delete", {
+      headers: getHeaders(),
+      data,
+    })
+    .then(({ data }) => data);

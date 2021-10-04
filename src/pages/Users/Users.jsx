@@ -4,7 +4,7 @@ import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import UserForm from "./UserForm";
 import { UserDelete } from "./UserDelete";
-import { getUsers, deleteUser } from "../../lib/services/users/users.service";
+import { getUsers } from "../../lib/services/users/users.service";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -50,7 +50,7 @@ const Users = () => {
   }, []);
 
   if (status === "Error") {
-    return <Redirect to="/" />;
+    // return <Redirect to="/" />;
   }
 
   return status === "loading" ? (

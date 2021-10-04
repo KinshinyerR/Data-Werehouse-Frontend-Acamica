@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../../images/dt1.png";
+import { getProfile } from "../../lib/services/users/users.service";
 
 const Navbar = () => {
+  const [profile, setProfile] = useState({});
   const history = useHistory();
 
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
   };
+
+  useEffect(() => {
+    getProfile().then((result) => setProfile(result));
+  }, []);
 
   return (
     <>
@@ -32,7 +38,7 @@ const Navbar = () => {
                   id="contactos"
                   to="/contactos"
                 >
-                  <i id="contactos" className="far fa-address-book"></i>{" "}
+                  <i id="contactos" className="far fa-address-book"></i>
                   Contactos
                 </Link>
               </li>
@@ -46,16 +52,18 @@ const Navbar = () => {
                   <i id="compañias" className="far fa-building"></i> Compañias
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  name="usuarios"
-                  to="/usuarios"
-                  id="usuarios"
-                >
-                  <i id="usuarios" className="far fa-user"></i> Usuarios
-                </Link>
-              </li>
+              {profile.perfil === "admin" ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    name="usuarios"
+                    to="/usuarios"
+                    id="usuarios"
+                  >
+                    <i id="usuarios" className="far fa-user"></i> Usuarios
+                  </Link>
+                </li>
+              ) : null}
               <li className="nav-item">
                 <Link
                   className="nav-link active"
