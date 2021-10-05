@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getHeaders } from "../../utils/getHeaders";
 
 export const getRegions = () => {
   const token = localStorage.getItem("token");
@@ -60,12 +61,12 @@ export const getCities = () => {
     .catch((error) => console.log("error", error));
 };
 
-export const registerRegion = (data) => {
+export const registerRegion = (tipo, data) => {
   const token = localStorage.getItem("token");
 
   const config = {
     method: "post",
-    url: "https://data-werehouse-kr.herokuapp.com/regions/addRegion",
+    url: `https://data-werehouse-kr.herokuapp.com/regions/add${tipo}`,
     headers: {
       "x-auth-token": token,
       "Content-Type": "application/json",
@@ -80,28 +81,40 @@ export const registerRegion = (data) => {
     .catch((error) => console.log("error", { error }));
 };
 
-export const updateRegion = (data) => {
-  const token = localStorage.getItem("token");
+export const updateRegion = (tipo, data) => {
+  return axios
+    .put(
+      `https://data-werehouse-kr.herokuapp.com/regions/update${tipo}`,
+      data,
+      { headers: getHeaders() }
+    )
+    .then(({ data }) => data);
+};
 
-  const datos = JSON.stringify({
-    id: data.regionId,
-    name: data.name,
-  });
-
-  const config = {
-    method: "put",
-    url: "https://data-werehouse-kr.herokuapp.com/regions/updateRegion",
-    headers: {
-      "x-auth-token": token,
-      "Content-Type": "application/json",
-    },
-    data: datos,
-  };
-
-  return axios(config)
-    .then(function (response) {
-      console.log(response);
-      return response;
+export const deleteRegion = (tipo, data) => {
+  return axios
+    .delete(`https://data-werehouse-kr.herokuapp.com/regions/delete${tipo}`, {
+      headers: getHeaders(),
+      data: data,
     })
-    .catch((error) => console.log("error", { error }));
+    .then(({ data }) => data);
+};
+
+export const allRegions = () => {
+  return axios
+    .get("https://data-werehouse-kr.herokuapp.com/regions/all", {
+      headers: getHeaders(),
+    })
+    .then(({ data }) => {
+      const newRegion = data;
+      newRegion.map((r) => {
+        r.childrenName = "País";
+        r.children = r.countries;
+        r.children.map((c) => {
+          c.childrenName = "Ciudad";
+          c.children = c.cities;
+        });
+      });
+      return newRegion;
+    });
 };

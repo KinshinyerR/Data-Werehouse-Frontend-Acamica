@@ -3,46 +3,32 @@ import NestedItem from "../../componentes/NestedItem/NestedItem";
 import Plantilla from "../../componentes/Plantilla/Plantilla";
 import Modal from "../../componentes/Modal/Modal";
 import RegionForm from "./RegionForm";
-
+import { allRegions } from "../../lib/services/regions/region.service";
+import { RegionDelete } from "./RegionDelete";
 const Region = () => {
   const [region, setRegion] = useState([]);
   const [modal, setModal] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-
-    fetch("https://data-werehouse-kr.herokuapp.com/regions/all", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        const newRegion = JSON.parse(result);
-        newRegion.map((r) => {
-          r.childrenName = "País";
-          r.children = r.countries;
-          r.children.map((c) => {
-            c.childrenName = "Ciudad";
-            c.children = c.cities;
-          });
-        });
-        setRegion(newRegion);
-      })
-      .catch((error) => console.log("error", error));
+    allRegions().then((result) => setRegion(result));
   }, []);
 
   const handleOnEdit = (item) => {
-    console.log(item);
+    let tipo = "";
+
+    if (item.childrenName === "País") {
+      tipo = "Region";
+    } else if (item.childrenName === "Ciudad") {
+      tipo = "Country";
+    } else {
+      tipo = "City";
+    }
+
     setModal(
       <Modal
         show
         title={"Actualizar"}
-        body={<RegionForm region={item} title="Actualizar" />}
+        body={<RegionForm item={item} title="Actualizar" tipo={tipo} />}
         onClose={handleOnClose}
       />
     );
@@ -50,30 +36,69 @@ const Region = () => {
 
   const handleOnClose = () => {
     setModal(null);
-    // getUsers().then((result) => setUsers(result));
+    allRegions().then((result) => setRegion(result));
   };
 
-  const handleOnClick = (region) => {
+  const handleOnAddItem = (item) => {
+    let tipo = "";
+    let padre = {};
+
+    if (item.childrenName === "Región") {
+      tipo = "Region";
+    } else if (item.childrenName === "País") {
+      tipo = "Country";
+      padre = {
+        regionId: item._id,
+      };
+    } else {
+      tipo = "City";
+      padre = {
+        countryId: item._id,
+      };
+    }
+
     setModal(
       <Modal
         show
-        title={"Añadir Region"}
-        body={<RegionForm region={region} title={"Añadir"} />}
+        title={`Añadir ${item.childrenName}`}
+        body={<RegionForm title={"Añadir"} tipo={tipo} padreId={padre} />}
         onClose={handleOnClose}
       />
     );
   };
 
-  const handleOnDelete = (e) => {
-    console.log(e);
+  const handleOnDelete = (e, item) => {
+    e.stopPropagation();
+    console.log(item);
+    let tipo = "";
+
+    if (item.childrenName === "País") {
+      tipo = "Region";
+    } else if (item.childrenName === "Ciudad") {
+      tipo = "Country";
+    } else {
+      tipo = "City";
+    }
+    setModal(
+      <Modal
+        show
+        title="Eliminar"
+        body={<RegionDelete item={item} title="Eliminar" tipo={tipo} />}
+        onClose={handleOnClose}
+      />
+    );
   };
   return (
     <>
-      <Plantilla title="Region" handleOnAdd={() => handleOnClick()} />
+      <Plantilla
+        title="Region"
+        handleOnAdd={() => handleOnAddItem({ childrenName: "Región" })}
+      />
       <NestedItem
         list={region}
         handleOnEdit={handleOnEdit}
         handleOnDelete={handleOnDelete}
+        handleOnAddItem={handleOnAddItem}
       />
       {modal}
     </>

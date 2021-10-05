@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./NestedItem.css";
 
-export const NestedItem = ({ list, handleOnEdit, handleOnDelete }) => {
+export const NestedItem = ({
+  list,
+  handleOnEdit,
+  handleOnDelete,
+  handleOnAddItem,
+}) => {
   const [expanded, setExpanded] = useState(true);
 
   const handleOnExpand = (e) => {
@@ -33,13 +38,16 @@ export const NestedItem = ({ list, handleOnEdit, handleOnDelete }) => {
                 </button>
                 <button
                   className="btn btn-outline-warning text-dark"
-                  onClick={() => handleOnDelete(item)}
+                  onClick={(e) => handleOnDelete(e, item)}
                 >
                   Eliminar
                 </button>
               </div>
               {item.children ? (
-                <button className="btn btn-outline-warning text-dark">
+                <button
+                  className="btn btn-outline-warning text-dark"
+                  onClick={() => handleOnAddItem(item)}
+                >
                   Añadir {item.childrenName}
                 </button>
               ) : null}
@@ -49,6 +57,7 @@ export const NestedItem = ({ list, handleOnEdit, handleOnDelete }) => {
                 list={item.children}
                 handleOnEdit={handleOnEdit}
                 handleOnDelete={handleOnDelete}
+                handleOnAddItem={handleOnAddItem}
               />
             )}
           </li>

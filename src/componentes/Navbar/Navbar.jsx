@@ -35,10 +35,10 @@ const Navbar = () => {
                 <Link
                   className="nav-link active"
                   name="contactos"
-                  id="contactos"
                   to="/contactos"
+                  id="contactos"
                 >
-                  <i id="contactos" className="far fa-address-book"></i>
+                  <i id="contactos" className="far fa-address-book"></i>{" "}
                   Contactos
                 </Link>
               </li>

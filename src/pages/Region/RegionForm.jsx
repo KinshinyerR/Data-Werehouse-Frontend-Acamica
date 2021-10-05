@@ -4,10 +4,11 @@ import {
   updateRegion,
 } from "../../lib/services/regions/region.service";
 
-export const RegionForm = ({ region, title }) => {
+export const RegionForm = ({ item, title, tipo, padreId }) => {
   const [formData, setFormData] = useState({
-    name: region ? region.name : "",
-    regionId: region ? region._id : "",
+    name: item ? item.name : "",
+    id: item ? item._id : undefined,
+    ...padreId,
   });
 
   const { name } = formData;
@@ -21,11 +22,11 @@ export const RegionForm = ({ region, title }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    region
-      ? updateRegion(formData).then((result) => console.log(result))
-      : registerRegion(formData).then((result) => console.log(result));
+    item
+      ? updateRegion(tipo, formData).then((result) => console.log(result))
+      : registerRegion(tipo, formData).then((result) => console.log(result));
   };
-  
+
   return (
     <form onSubmit={handleOnSubmit} className="container">
       <div className="mb-3 row">
