@@ -61,21 +61,16 @@ const Users = () => {
       <table className="table table-hover  mx-4">
         <thead>
           <tr>
-            <th scope="col">{<input type="checkbox" />}</th>
             <th scope="col">Perfil</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Email</th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           {users &&
             users.map((user) => (
               <tr key={user.email} onClick={() => handleOnClick(user)}>
-                <th scope="row">
-                  <input type="checkbox" />
-                </th>
                 <td>{user.perfil}</td>
                 <td>{user.nombre}</td>
                 <td>{user.apellido}</td>

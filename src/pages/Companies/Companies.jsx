@@ -53,9 +53,6 @@ const Companies = () => {
       <table className="table table-striped table-hover  mx-4">
         <thead>
           <tr>
-            <th scope="col">
-              <input type="checkbox" />
-            </th>
             <th scope="col">Nombre</th>
             <th scope="col">País</th>
             <th scope="col">Dirección</th>
@@ -65,9 +62,6 @@ const Companies = () => {
         <tbody>
           {companies.map((company) => (
             <tr key={company.email} onClick={() => handleOnClick(company)}>
-              <th scope="row">
-                <input type="checkbox" />
-              </th>
               <td>{company.name}</td>
               <td>{company.cityId.name}</td>
               <td>{company.address}</td>
