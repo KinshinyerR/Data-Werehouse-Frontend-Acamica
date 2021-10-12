@@ -4,7 +4,9 @@ import { deleteContact } from "../../lib/services/contacts/contacts.service";
 export const ContactDelete = ({ contact, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    deleteContact(contact.email).then((result) => console.log(result));
+    deleteContact({ email: contact.email })
+      .then((result) => console.log(result))
+      .catch((error) => console.log({ error }));
   };
   return (
     <form onSubmit={handleOnSubmit} className="container">

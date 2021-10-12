@@ -4,7 +4,9 @@ import { deleteCompany } from "../../lib/services/companies/companies.service";
 export const CompaniesDelete = ({ company, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    deleteCompany(company.email).then((result) => console.log(result));
+    deleteCompany({ email: company.email })
+      .then((result) => console.log(result))
+      .catch((error) => console.log({ error }));
   };
   return (
     <form onSubmit={handleOnSubmit} className="container">

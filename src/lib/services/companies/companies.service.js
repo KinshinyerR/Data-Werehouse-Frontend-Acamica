@@ -1,87 +1,28 @@
-export const registerCompany = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
+import axios from "axios";
+import { getHeaders } from "../../utils/getHeaders";
 
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: JSON.stringify(data),
-    redirect: "follow",
-  };
+const api = process.env.REACT_APP_API;
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/companies/register",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-};
+export const registerCompany = (data) =>
+  axios
+    .post(`${api}/companies/register`, data, {
+      headers: getHeaders(),
+    })
+    .then(({ data }) => data);
 
-export const getCompanies = () => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
+export const getCompanies = () =>
+  axios(`${api}/companies/all`, {
+    headers: getHeaders(),
+  }).then(({ data }) => data);
 
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
+export const updateCompany = (data) =>
+  axios
+    .put(`${api}/companies/update`, data, {
+      headers: getHeaders(),
+    })
+    .then(({ data }) => data);
 
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/companies/all",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
-};
-
-export const updateCompany = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "PUT",
-    headers: myHeaders,
-    body: JSON.stringify(data),
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/companies/update",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
-};
-
-export const deleteCompany = (data) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("x-auth-token", token);
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "DELETE",
-    headers: myHeaders,
-    body: JSON.stringify({
-      email: data,
-    }),
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://data-werehouse-kr.herokuapp.com/companies/delete",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
-};
+export const deleteCompany = (data) =>
+  axios
+    .delete(`${api}/companies/delete`, { headers: getHeaders(), data })
+    .then(({ data }) => data);

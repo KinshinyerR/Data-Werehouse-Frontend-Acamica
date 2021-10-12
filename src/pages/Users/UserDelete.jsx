@@ -6,7 +6,9 @@ export const UserDelete = ({ user, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(user);
-    deleteUser(user.email).then((result) => console.log(result));
+    deleteUser({ email: user.email })
+      .then((result) => console.log(result))
+      .catch((error) => console.log({ error }));
   };
   return (
     <form onSubmit={handleOnSubmit} className="container">

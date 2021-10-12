@@ -123,7 +123,7 @@ const Contacts = () => {
                 <input
                   type="checkbox"
                   onChange={handleOnCheckAll}
-                  checked={checkAll}
+                  defaultChecked={checkAll}
                 />
               }
             </th>
@@ -149,7 +149,7 @@ const Contacts = () => {
                 <th scope="row">
                   <input
                     type="checkbox"
-                    checked={contact.check}
+                    defaultChecked={contact.check}
                     onChange={() => handleOnChangeItem(contact._id)}
                   />
                 </th>

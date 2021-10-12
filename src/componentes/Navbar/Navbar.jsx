@@ -13,7 +13,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    getProfile().then((result) => setProfile(result));
+    getProfile()
+      .then((result) => setProfile(result))
+      .catch((error) => console.log({error}));
   }, []);
 
   return (

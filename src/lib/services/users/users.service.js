@@ -9,27 +9,27 @@ export const getProfile = () =>
   );
 
 export const getUsers = () =>
-  axios("https://data-werehouse-kr.herokuapp.com/users/all", {
+  axios(`${api}/users/all`, {
     headers: getHeaders(),
   }).then(({ data }) => data);
 
 export const registerUser = (data) =>
   axios
-    .post("https://data-werehouse-kr.herokuapp.com/users/register", data, {
+    .post(`${api}/users/register`, data, {
       headers: getHeaders(),
     })
     .then(({ data }) => data);
 
 export const updateUser = (data) =>
   axios
-    .put("https://data-werehouse-kr.herokuapp.com/users/update", data, {
+    .put(`${api}/users/update`, data, {
       headers: getHeaders(),
     })
     .then(({ data }) => data);
 
 export const deleteUser = (data) =>
   axios
-    .delete("https://data-werehouse-kr.herokuapp.com/users/delete", {
+    .delete(`${api}/users/delete`, {
       headers: getHeaders(),
       data,
     })

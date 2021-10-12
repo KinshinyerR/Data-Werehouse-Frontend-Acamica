@@ -13,7 +13,7 @@ const Users = () => {
 
   const handleOnClose = () => {
     setModal(null);
-    getUsers().then((result) => setUsers(result));
+    getUsers().then((result) => setUsers(result)).catch((error) => console.log({error}));
   };
 
   const handleOnDelete = (e, user) => {
@@ -46,12 +46,9 @@ const Users = () => {
           setStatus("exitoso");
         }
       })
-      .catch(() => setStatus("Error"));
+      .catch((error) => console.log({error}));
   }, []);
 
-  if (status === "Error") {
-    // return <Redirect to="/" />;
-  }
 
   return status === "loading" ? (
     <h1>Cargando...</h1>
