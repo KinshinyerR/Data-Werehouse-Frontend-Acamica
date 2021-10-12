@@ -47,10 +47,6 @@ export const getContacts = (search) => {
     `https://data-werehouse-kr.herokuapp.com/contacts/all?search=${search}`,
     requestOptions
   ).then((response) => response.json());
-  // .then((result) => result)
-  // .catch((error) => {
-  //   throw error;
-  // });
 };
 
 export const updateContact = (data) =>
