@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Demo
 
-https://data-warehouse-app.vercel.app/
+https://data-werehouse-kr.netlify.app/
 
 Users:
 
