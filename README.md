@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 https://data-werehouse-kr.netlify.app/
 
+Back-End: 
+- https://github.com/KinshinyerR/Data-Werehouse-Backend-Acamica
+
 Users:
 
 - admin@example.com / pwd: admin123
