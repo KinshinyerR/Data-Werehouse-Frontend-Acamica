@@ -30,7 +30,13 @@ const Contacts = () => {
       <Modal
         show
         title="Eliminar"
-        body={<ContactDelete contact={contact} title="Eliminar" />}
+        body={
+          <ContactDelete
+            contact={contact}
+            title="Eliminar"
+            handleOnClose={handleOnClose}
+          />
+        }
         onClose={handleOnClose}
       />
     );
@@ -63,6 +69,7 @@ const Contacts = () => {
           <ContactForm
             contact={contact}
             title={contact ? "Actualizar" : "Añadir"}
+            handleOnClose={handleOnClose}
           />
         }
         onClose={handleOnClose}

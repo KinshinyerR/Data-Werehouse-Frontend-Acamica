@@ -13,7 +13,9 @@ const Users = () => {
 
   const handleOnClose = () => {
     setModal(null);
-    getUsers().then((result) => setUsers(result)).catch((error) => console.log({error}));
+    getUsers()
+      .then((result) => setUsers(result))
+      .catch((error) => console.log({ error }));
   };
 
   const handleOnDelete = (e, user) => {
@@ -22,7 +24,13 @@ const Users = () => {
       <Modal
         show
         title="Eliminar"
-        body={<UserDelete user={user} title="Eliminar" />}
+        body={
+          <UserDelete
+            user={user}
+            title="Eliminar"
+            handleOnClose={handleOnClose}
+          />
+        }
         onClose={handleOnClose}
       />
     );
@@ -32,7 +40,13 @@ const Users = () => {
       <Modal
         show
         title={user ? "Actualizar Usuario" : "Añadir Usuario"}
-        body={<UserForm user={user} title={user ? "Actualizar" : "Añadir"} />}
+        body={
+          <UserForm
+            user={user}
+            title={user ? "Actualizar" : "Añadir"}
+            handleOnClose={handleOnClose}
+          />
+        }
         onClose={handleOnClose}
       />
     );
@@ -46,9 +60,8 @@ const Users = () => {
           setStatus("exitoso");
         }
       })
-      .catch((error) => console.log({error}));
+      .catch((error) => console.log({ error }));
   }, []);
-
 
   return status === "loading" ? (
     <h1>Cargando...</h1>

@@ -6,7 +6,12 @@ export const ContactsDeleteModal = ({ contacts, handleOnClose }) => {
     e.preventDefault();
     console.log(contacts);
     contacts.forEach((contact) => {
-      deleteContact(contact.email).then((result) => console.log(result));
+      deleteContact({ email: contact.email })
+        .then((result) => {
+          console.log(result);
+          handleOnClose();
+        })
+        .catch((error) => console.log({ error }));
     });
   };
   return (

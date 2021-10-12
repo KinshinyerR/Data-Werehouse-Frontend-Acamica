@@ -2,12 +2,15 @@ import React from "react";
 
 import { deleteUser } from "../../lib/services/users/users.service";
 
-export const UserDelete = ({ user, title }) => {
+export const UserDelete = ({ user, title, handleOnClose }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(user);
     deleteUser({ email: user.email })
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        handleOnClose();
+      })
       .catch((error) => console.log({ error }));
   };
   return (

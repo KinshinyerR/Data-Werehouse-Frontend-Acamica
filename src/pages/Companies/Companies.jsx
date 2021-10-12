@@ -20,7 +20,13 @@ const Companies = () => {
       <Modal
         show
         title="Eliminar"
-        body={<CompaniesDelete company={company} title="Eliminar" />}
+        body={
+          <CompaniesDelete
+            company={company}
+            title="Eliminar"
+            handleOnclose={handleOnclose}
+          />
+        }
         onClose={handleOnclose}
       />
     );
@@ -36,6 +42,7 @@ const Companies = () => {
           <CompaniesForm
             company={company}
             title={company ? "Actualizar" : "Añadir"}
+            handleOnclose={handleOnclose}
           />
         }
         onClose={handleOnclose}

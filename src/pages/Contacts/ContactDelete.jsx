@@ -1,11 +1,14 @@
 import React from "react";
 import { deleteContact } from "../../lib/services/contacts/contacts.service";
 
-export const ContactDelete = ({ contact, title }) => {
+export const ContactDelete = ({ contact, title, handleOnClose }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     deleteContact({ email: contact.email })
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        handleOnClose();
+      })
       .catch((error) => console.log({ error }));
   };
   return (

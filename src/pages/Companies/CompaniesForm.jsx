@@ -7,7 +7,7 @@ import {
 
 import { getCities } from "../../lib/services/regions/region.service";
 
-const CompaniesForm = ({ company, title }) => {
+const CompaniesForm = ({ company, title, handleOnclose }) => {
   const [cities, setCities] = useState([]);
   const [formData, setFormData] = useState({
     name: company ? company.name : "",
@@ -26,15 +26,20 @@ const CompaniesForm = ({ company, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     company
-      ? updateCompany(formData).then((result) => console.log(result))
-      : registerCompany(formData).then((result) => result);
+      ? updateCompany(formData).then((result) => {
+          console.log(result);
+          handleOnclose();
+        })
+      : registerCompany(formData).then((result) => {
+          console.log(result);
+          handleOnclose();
+        });
   };
 
   useEffect(() => {
     getCities().then((result) => setCities(result));
   }, []);
 
-  
   return (
     <form onSubmit={handleOnSubmit} className="container">
       <div className="mb-3 row">

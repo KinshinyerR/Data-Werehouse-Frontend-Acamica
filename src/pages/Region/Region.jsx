@@ -28,7 +28,7 @@ const Region = () => {
       <Modal
         show
         title={"Actualizar"}
-        body={<RegionForm item={item} title="Actualizar" tipo={tipo} />}
+        body={<RegionForm item={item} title="Actualizar" tipo={tipo} handleOnClose={handleOnClose}/>}
         onClose={handleOnClose}
       />
     );
@@ -61,7 +61,7 @@ const Region = () => {
       <Modal
         show
         title={`Añadir ${item.childrenName}`}
-        body={<RegionForm title={"Añadir"} tipo={tipo} padreId={padre} />}
+        body={<RegionForm title={"Añadir"} tipo={tipo} padreId={padre} handleOnClose={handleOnClose}/>}
         onClose={handleOnClose}
       />
     );
@@ -83,7 +83,7 @@ const Region = () => {
       <Modal
         show
         title="Eliminar"
-        body={<RegionDelete item={item} title="Eliminar" tipo={tipo} />}
+        body={<RegionDelete item={item} title="Eliminar" tipo={tipo} handleOnClose={handleOnClose}/>}
         onClose={handleOnClose}
       />
     );

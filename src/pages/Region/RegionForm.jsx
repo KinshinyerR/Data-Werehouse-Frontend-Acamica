@@ -4,7 +4,7 @@ import {
   updateRegion,
 } from "../../lib/services/regions/region.service";
 
-export const RegionForm = ({ item, title, tipo, padreId }) => {
+export const RegionForm = ({ item, title, tipo, padreId, handleOnClose }) => {
   const [formData, setFormData] = useState({
     name: item ? item.name : "",
     id: item ? item._id : undefined,
@@ -23,8 +23,18 @@ export const RegionForm = ({ item, title, tipo, padreId }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     item
-      ? updateRegion(tipo, formData).then((result) => console.log(result))
-      : registerRegion(tipo, formData).then((result) => console.log(result));
+      ? updateRegion(tipo, formData)
+          .then((result) => {
+            console.log(result);
+            handleOnClose();
+          })
+          .catch((error) => console.log({ error }))
+      : registerRegion(tipo, formData)
+          .then((result) => {
+            console.log(result);
+            handleOnClose();
+          })
+          .catch((error) => console.log({ error }));
   };
 
   return (

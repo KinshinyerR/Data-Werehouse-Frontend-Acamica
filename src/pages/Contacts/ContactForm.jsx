@@ -11,7 +11,7 @@ import {
   getCities,
 } from "../../lib/services/regions/region.service";
 
-const ContactForm = ({ contact, title }) => {
+const ContactForm = ({ contact, title, handleOnClose }) => {
   const [compamies, setCompamies] = useState([]);
   const [regions, setRegions] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -94,16 +94,32 @@ const ContactForm = ({ contact, title }) => {
     e.preventDefault();
     contact
       ? updateContact(formData)
-          .then((result) => console.log(result))
+          .then((result) => {
+            console.log(result);
+            handleOnClose();
+          })
           .catch((error) => console.log("error", error))
-      : registerContact(formData).then((result) => console.log(result));
+      : registerContact(formData)
+          .then((result) => {
+            console.log(result);
+            handleOnClose();
+          })
+          .catch((error) => console.log("error", error));
   };
 
   useEffect(() => {
-    getCompanies().then((result) => setCompamies(result));
-    getRegions().then((result) => setRegions(result));
-    getCountries().then((result) => setCountries(result));
-    getCities().then((result) => setCities(result));
+    getCompanies()
+      .then((result) => setCompamies(result))
+      .catch((error) => console.log("error", error));
+    getRegions()
+      .then((result) => setRegions(result))
+      .catch((error) => console.log("error", error));
+    getCountries()
+      .then((result) => setCountries(result))
+      .catch((error) => console.log("error", error));
+    getCities()
+      .then((result) => setCities(result))
+      .catch((error) => console.log("error", error));
   }, []);
 
   console.log(contact);

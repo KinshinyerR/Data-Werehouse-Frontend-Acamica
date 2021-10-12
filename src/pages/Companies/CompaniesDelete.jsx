@@ -1,11 +1,14 @@
 import React from "react";
 import { deleteCompany } from "../../lib/services/companies/companies.service";
 
-export const CompaniesDelete = ({ company, title }) => {
+export const CompaniesDelete = ({ company, title, handleOnclose }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     deleteCompany({ email: company.email })
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        handleOnclose();
+      })
       .catch((error) => console.log({ error }));
   };
   return (

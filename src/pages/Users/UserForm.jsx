@@ -5,7 +5,7 @@ import {
   updateUser,
 } from "../../lib/services/users/users.service";
 
-const UserForm = ({ user, title }) => {
+const UserForm = ({ user, title, handleOnClose }) => {
   const [formData, setFormData] = useState({
     nombre: user ? user.nombre : "",
     apellido: user ? user.apellido : "",
@@ -23,8 +23,14 @@ const UserForm = ({ user, title }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     user
-      ? updateUser(formData).then((result) => console.log(result))
-      : registerUser(formData).then((result) => console.log(result));
+      ? updateUser(formData).then((result) => {
+          console.log(result);
+          handleOnClose()
+        }).catch((error) => console.log({error}))
+      : registerUser(formData).then((result) => {
+          console.log(result);
+          handleOnClose()
+        }).catch((error) => console.log({error}))
   };
 
   return (

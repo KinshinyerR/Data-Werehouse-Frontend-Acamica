@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { deleteRegion } from "../../lib/services/regions/region.service";
 
-export const RegionDelete = ({ item, title, tipo }) => {
+export const RegionDelete = ({ item, title, tipo, handleOnClose }) => {
   let nameItem = "";
 
   if (tipo === "Region") {
@@ -18,7 +18,10 @@ export const RegionDelete = ({ item, title, tipo }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    deleteRegion(tipo, formData).then((result) => console.log(result));
+    deleteRegion(tipo, formData).then((result) => {
+      console.log(result);
+      handleOnClose();
+    });
   };
 
   return (
