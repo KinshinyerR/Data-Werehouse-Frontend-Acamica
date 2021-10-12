@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Demo
+
+https://data-warehouse-app.vercel.app/
+
+Users:
+
+- admin@example.com / pwd: admin123
+- user@example.com / pwd: user123
+
 ## Available Scripts
 
 In the project directory, you can run:
